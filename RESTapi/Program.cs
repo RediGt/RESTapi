@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Net;
 
 namespace RESTapi
@@ -11,12 +12,20 @@ namespace RESTapi
             String url = "https://my-json-server.typicode.com/RediGt/FakeRest/db";
             WebClient client = new WebClient();
             String response = client.DownloadString(url);
-            Console.WriteLine(response);
+            //Console.WriteLine(response);
 
             Container rec = JsonConvert.DeserializeObject<Container>(response);
-            foreach (Students e in rec.students)
+
+            List<Students> students = rec.students;
+         
+            foreach (Students stud in rec.students)
             {
-                Console.WriteLine(e.lastName + "  " + e.age);
+                Console.WriteLine(stud.lastName + "  " + stud.age);
+            }
+
+            foreach (var stud in students)
+            {
+                stud.PrintInfo();
             }
 
             /*String url = "http://dummy.restapiexample.com/api/v1/employees";
